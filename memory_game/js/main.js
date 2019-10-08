@@ -48,7 +48,7 @@
 	
 	function flipCard(cardId) {
 
-		cardsInPlay.push(cards[cardId].rank);
+		cardsInPlay.push(cards[cardId].rank);   //why include rank for the push?
 
 		console.log("User flipped " + cards[cardId].rank);
 		console.log(cards[cardId].cardImage);
