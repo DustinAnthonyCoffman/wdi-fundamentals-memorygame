@@ -28,8 +28,6 @@
 			cardImage: "images/king-of-diamonds.png"
 
 		}
-
-
 	];
 
 	var cardsInPlay = [];
@@ -44,16 +42,19 @@
 		
 			alert("Sorry, try again.");
 		}
+	
 	}
 	
-	function flipCard(cardId) {
+	function flipCard() {
 
-		cardsInPlay.push(cards[cardId].rank);   //why include rank for the push?
-
+		var cardId = this.getAttribute('data-id');	//grab data id of current card that was clicked, store in cardId
+		cardsInPlay.push(cards[cardId].rank);   //push currentcard click rank into cards inplay array
 		console.log("User flipped " + cards[cardId].rank);
 		console.log(cards[cardId].cardImage);
 		console.log(cards[cardId].suit);
 
+		this.setAttribute('src', cards[cardId].cardImage); //cardId holds the data attribute of the current 'this'
+													
 		if (cardsInPlay.length === 2) {
 	
 			checkForMatch();
@@ -62,8 +63,20 @@
 		
 		}
 
-flipCard(0);
-flipCard(2);
+	function createBoard() {
+
+		for(i = 0; i < cards.length; i++) {
+			var cardElement = document.createElement('img');			//create image store in cardELement
+			cardElement.setAttribute('src', 'images/back.png');			//appends image path to image src
+			cardElement.setAttribute('data-id', i);						//sets data id as current card loop index
+			cardElement.addEventListener('click', flipCard);			//click event listener run flipcard
+			document.getElementById('game-board').appendChild(cardElement);  //append cardelement images to div
+		}
+
+	}
+
+	createBoard();
+
 
 
 
